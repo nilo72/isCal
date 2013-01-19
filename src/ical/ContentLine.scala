@@ -1,5 +1,9 @@
 package ical
 
+object Config{
+  final val DE_DE:String = "DE_DE"
+  val DEFAULT_LANGUAGE:String = DE_DE
+}
 trait Eventprop
 trait CalendarComponent{
   val desc:String
@@ -17,10 +21,7 @@ trait Contentline{
   override def toString = {
     val sb = StringBuilder.newBuilder
     sb.append(name)
-    if(!param.isEmpty){
-      sb.append(";")
-      sb.append(param)
-    } 
+    if(!param.isEmpty) sb.append((for(c <- param ; val x = ";" +c ) yield x) mkString) 
     sb.append(":")
     sb.append(value)
     sb.append("\n")
@@ -53,8 +54,10 @@ case class Property(param:List[String]=List(),value: String,name:String) extends
  */
 case class VEvent(eventprops:List[Eventprop]) extends CalendarComponent{
   val desc = "VEVENT"
+  def mergedProps:List[Eventprop] = List()
   override def toString():String = BeginCL(value=desc) + 
   								   eventprops.mkString +
+  								   defaultProps.mkString +
   								   EndCL(value=desc)  
 }
 
@@ -85,7 +88,10 @@ case class Created(name:String="CREATED",value:String,param:List[String]=List())
 case class Description(name:String="DESCRIPTION",value:String,param:List[String]=List()) extends Contentline with Eventprop
 case class Dtstart(name:String="DTSTART",value:String,param:List[String]=List()) extends Contentline with Eventprop
 case class Geo(name:String="GEO",value:String,param:List[String]=List()) extends Contentline with Eventprop
-
+/**
+ * Imlementation of Location on page 84 (4.8.1.7)
+ * missing param implementation (altrepparam , languageparam)
+ */
 case class Location(name:String="LOCATION",value:String,param:List[String]=List()) extends Contentline with Eventprop
 case class Organizer(name:String="ORGANIZER",value:String,param:List[String]=List()) extends Contentline with Eventprop
 case class Status(name:String="STATUS",value:String,param:List[String]=List()) extends Contentline with Eventprop
@@ -115,3 +121,7 @@ case class ProdID(param:List[String],value:String="-//isCal tool//Testframe//DE"
  * page 75 (4.7.4)
  */
 case class Version(param:List[String],value:String="2.0",name:String="VERSION") extends Contentline
+/**
+ * Implementation of language parameter. value can only be RFC1766 defined languagedefinitionsh
+ */
+case class LanguageParam(final val name:String="LANGUAGE",value:String=Config.DEFAULT_LANGUAGE,param:List[String]=List()) extends Contentline
