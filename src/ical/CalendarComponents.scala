@@ -1,22 +1,12 @@
 package ical
 
 import ComponentProperties.Class
+import ComponentProperties.ToDoProp
+import ICalendarCore._
 
 object CalendarComponents {
-  /**
- * Implementation of iCalendat Object RFC2445 page 49 (4.4)
- */
-case class ICalobject(body:ICalbody){
-  val desc = "VCALENDAR"
-  override def toString():String = BeginCL(value=desc) +  body.toString + EndCL(value=desc)
-}
-/**
- * icalbody on page 50 (4.6)
- */
-case class ICalbody(comp: List[CalendarComponent],props: Calprops=Calprops()){
-  override def toString():String = props.toString + comp.mkString
-}
-  trait CalendarComponent{
+
+trait CalendarComponent{
   val desc:String
   val defaultProps = List(Class())  
 }
@@ -49,4 +39,5 @@ case class ICalbody(comp: List[CalendarComponent],props: Calprops=Calprops()){
     val desc = "VTIMEZONE"
   }
 
+case class Alarmc()
 }

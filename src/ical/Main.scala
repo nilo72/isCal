@@ -2,6 +2,7 @@ package ical
 
 import CalendarComponents._
 import ComponentProperties._
+import iCalendarObject._
 
 object Main {
 
