@@ -1,8 +1,12 @@
 package ical
 
+import CalendarComponents._
+import ComponentProperties._
+
 object Main {
 
   def main(args: Array[String]): Unit = {
+   val ct = Class(value="PRIVATE")
    val event = VEvent(List(Location(value="PC-Pool 11.01 a"),Organizer(value="Oliver Neumann"),Description(value="BAI1-PRP1")))
    val event2 = VEvent(List(Location(value="PC-Pool 11.01 a"),Organizer(value="Oliver Neumann"),Description(value="BAI1-PRP1")))
    val icalbody = ICalbody(List(event,event2))
