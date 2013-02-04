@@ -31,12 +31,14 @@ object ComponentProperties {
  *	DTSTART Implementing 4.8.2.4 Date/Time Start page 93 ff
  * 
  */
+  import ical.PropertyParameters.PropertyParam
+  import ical.PropertyParameters.TZIdParam
   import ical.ValueTypes.TimeValueType
-  case class DTEnd(name: String="DTEND", value: TimeValueType, param:List[String]) extends Contentline with EventProp{
+  case class DTEnd(name: String="DTEND", value: TimeValueType, param:List[PropertyParam]=List(TZIdParam())) extends Contentline with EventProp{
     override def toString = name + param.mkString + ":" + value.toString + Config.CRLF    
   }
-  case class DTStart(name: String = "DTSTART", value: TimeValueType, param:List[String]) extends Contentline with EventProp{
+  case class DTStart(name: String = "DTSTART", value: TimeValueType, param:List[PropertyParam]=List(TZIdParam())) extends Contentline with EventProp{
     //  default value type = DATE_TIME
-    override def toString = name + param.mkString + ":" + value.toString + Config.CRLF
+    override def toString = name + (param  mkString) + ":" + value.toString + Config.CRLF
   }
 }

@@ -8,6 +8,7 @@ import ical.CalendarComponents.VEvent
 import ical.ComponentProperties.Class
 
 class CalendarComponentsTest extends FunSuite{
+  
 	trait TestSets{
 	  val t1 = VEvent(List(Class()),List())
 	}

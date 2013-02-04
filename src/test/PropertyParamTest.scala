@@ -8,7 +8,7 @@ class PropertyParamTest extends FunSpec {
  describe("The PropertyParam TZiDParam "){
    it("should have the default value EUROPE/BERLIN"){
      val tz = TZIdParam()
-     assert(tz.toString === ";TZID=\"Europe/Berlin\"")
+     assert(tz.toString === ";TZID=Europe/Berlin")
    }
  }
 }

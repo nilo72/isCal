@@ -3,6 +3,7 @@ package ical
 object Config{
   final val DE_DE:String = "DE_DE"
   val DEFAULT_LANGUAGE:String = DE_DE
+  val DEFAULT_TIMEZONE="Europe/Berlin"
   val CRLF:String = "\r\n"
 }
 
@@ -13,7 +14,7 @@ object Config{
 
 trait Contentline{
   val name:String
-  val param:List[String]
+  val param:List[Any] //TODO Type any not perfect
   val value:Any
   
   override def toString = {
